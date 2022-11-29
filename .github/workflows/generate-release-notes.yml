@@ -9,6 +9,9 @@ on:
       generator-image:
         required: true
         type: string
+      flags:
+        required: false
+        type: string
     secrets:
       gcr-service-key:
         required: true
@@ -36,4 +39,4 @@ jobs:
           token: ${{ secrets.github-access-token }}
       -
         name: Publish release notes
-        run: docker run --rm -v "$(pwd):/repos/${{ inputs.project-name }}" --env GOOGLE_API_SERVICE_CREDENTIALS='${{ secrets.gcr-service-key }}' ${{ inputs.generator-image }} changelog publish ${{ inputs.project-name }}
+        run: docker run --rm -v "$(pwd):/repos/${{ inputs.project-name }}" --env GOOGLE_API_SERVICE_CREDENTIALS='${{ secrets.gcr-service-key }}' ${{ inputs.generator-image }} changelog publish ${{ inputs.project-name }} ${{ inputs.flags }}
